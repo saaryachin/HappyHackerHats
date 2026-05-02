@@ -45,17 +45,22 @@ SOURCE /full/path/to/schema.sql;
 
 ### 3. Database configuration
 
-The application expects the following credentials (defined in `db.php`):
+The application uses the following default credentials:
 
 - Database: whitehat
 - User: hatter
 - Password: whitehat
 
-If needed, create the user:
+These defaults are defined in `db.php`.
 
-CREATE USER 'hatter'@'localhost' IDENTIFIED BY 'whitehat';  
-GRANT ALL PRIVILEGES ON whitehat.* TO 'hatter'@'localhost';  
-FLUSH PRIVILEGES;
+The configuration also supports environment variables:
+
+- DB_HOST
+- DB_USER
+- DB_PASSWORD
+- DB_NAME
+
+If environment variables are not set, the default values above are used.
 
 ---
 
