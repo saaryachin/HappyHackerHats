@@ -24,6 +24,8 @@ This simple PHP + MariaDB web application for managing and searching products wa
 git clone <repo-url>  
 cd White_Hat_App
 
+Note: For Docker container, proceed to step 4 and follow Option B: Docker.
+
 ---
 
 ### 2. Initialize the database
@@ -51,7 +53,7 @@ The application uses the following default credentials:
 - User: hatter
 - Password: whitehat
 
-These defaults are defined in `db.php`.
+These defaults are defined in `db.php`, and are used if no environmental variables are set.
 
 The configuration also supports environment variables:
 
@@ -60,13 +62,12 @@ The configuration also supports environment variables:
 - DB_PASSWORD
 - DB_NAME
 
-If environment variables are not set, the default values above are used.
-
 ---
 
 ### 4. Run the application
 
-Using PHP built-in server (in the app directory):
+
+#### Option A: PHP built-in server (in the app directory)
 
 ```
 php -S localhost:8000
@@ -78,7 +79,21 @@ Then open:
 http://localhost:8000
 ```
 
-NOTE: Docker Container coming soon.
+#### Option B: Docker
+
+Run the application using docker:
+
+```
+docker compose up --build
+```
+
+Then open:
+http://localhost:8080
+
+This starts both the web application and the database.
+
+Note: On Fedora/Podman systems, volume mounting may require SELinux relabeling (`:Z`), which is already configured in `docker-compose.yml`.
+
 ---
 
 ## Usage
@@ -119,3 +134,4 @@ The implementation includes the following protections:
 ## Author
 
 Saar Yachin
+saaryachin.com
