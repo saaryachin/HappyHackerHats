@@ -1,5 +1,6 @@
 <?php
 require_once "./db.php";
+require_once "./security_headers.php";
 
 $product_name_err = "";
 $price_err = "";
@@ -17,6 +18,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     if (strlen($product_name) > 255) {
       $product_name_err = "Product name too long.";
+    } elseif (!preg_match("/^[A-Za-z0-9 _.,'!()&-]+$/", $product_name)) {
+      $product_name_err = "Product name contains invalid characters.";
     }
   }
 

@@ -1,5 +1,6 @@
 <?php
 require_once "./db.php";
+require_once "./security_headers.php";
 
 $rows = [];
 $table_header = "";

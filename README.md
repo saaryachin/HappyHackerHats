@@ -21,8 +21,10 @@ This simple PHP + MariaDB web application for managing and searching products wa
 
 ### 1. Clone the repository
 
+```
 git clone <repo-url>  
 cd White_Hat_App
+```
 
 Note: For Docker container, proceed to step 4 and follow Option B: Docker.
 
@@ -120,6 +122,32 @@ The implementation includes the following protections:
     - GET used for search operations
 - Redirect after POST (PRG pattern)  
     → avoids duplicate submissions on refresh
+
+## Version 2 Security Hardening
+
+After reviewing the application again, I added a small security-hardening update.
+
+Version 2 adds:
+
+- Product-name allowlist validation using a server-side regular expression
+- Centralized security headers in `security_headers.php`
+- A Content Security Policy that blocks JavaScript execution because the application does not require JavaScript
+- Framing protection to reduce clickjacking risk
+
+These changes are defense-in-depth additions. The original core protections remain:
+
+- Prepared statements for database queries
+- Server-side validation
+- Output escaping with `htmlspecialchars`
+- GET for search operations
+- POST for data modification
+- Redirect-after-POST to prevent duplicate form submission
+
+### Notes on Scope
+
+CSRF protection was considered but not added in this version because the application has no authentication, no sessions, and no user-specific authorization model. If login or role-based functionality were added later, CSRF tokens should be added to all state-changing POST requests.
+
+Price validation remains intentionally simple for the scope of the task: numeric and non-negative. In a production system, price handling should also enforce maximum value, decimal precision, and preferably avoid floating-point storage for money.
 
 ---
 
